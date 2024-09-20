@@ -22,23 +22,19 @@ void write_to_file(char* buffer, std::ofstream &file, uint32_t bytes) { //takes
   file.write(buffer, bytes);
 }
 
-// template<typename T>
-// T read_numeric_from_file(std::ifstream &file, int offset) {
-//   char buf[sizeof(T)];
+template<typename T>
+T read_numeric_from_file(std::ifstream &file, int offset) {
+  char buf[sizeof(T)];
 
-//   file.read(buf, sizeof(T));
+  file.read(buf, sizeof(T));
 
-//   return *reinterpret_cast<T*>(buf);
-// }
-
-template<typename T> 
-T read_numeric_from_buffer(char *buffer, int offset) {
-  return *reinterpret_cast<T*>(buffer + offset);
+  return *reinterpret_cast<T*>(buf);
 }
 
-bool _char_compare(const char* segment1, char* segment2, int c) {
-  // for (setup; loop while this is true; prepare for next iteration)
+// read_numeric_from_file<Node>(the_file, the_nodes_offset)
 
+
+bool _char_compare(const char* segment1, char* segment2, int c) {
   for (int i = 0; segment1[i] == segment2[i]; ++i) {
     --c;
 
