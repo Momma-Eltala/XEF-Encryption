@@ -1,38 +1,17 @@
 #include <string>
 #include <iostream>
-#include <vector>
 #include <fstream>
 #include <cstdint>
+
+#include "node_iterator.hpp"
+#include "parse_arguments.hpp"
 
  
  
 const std::string help_arg = "--help";
 const std::string xefheader = "\x01XEF";
+char buffer[2048];
 
-    char buffer[2048];
-//
-// if argc == 1:
-//   std::cerr << "fuck you" << std::endl
-// 
-//    // return -1
-// bool all_eq = false
-// std::string first_arg = argv[1]
-// while argp < argc:
-//   all_eq &&= std::string(argv[argp]) == first_arg
-// 
-
-struct Config {
-   
- std::string output_path;
-  int nodes = 0;
-  long used_nodes = 0;
-  bool add_xef = false;
-  bool make_xef = false;
-  bool addfile = false;
-  long file_input_size;
-  std::string inputfilex;
-}; 
- 
 
 template<typename T>
 void write_numeric_to_file(std::ofstream &file, T num) {
@@ -40,9 +19,9 @@ void write_numeric_to_file(std::ofstream &file, T num) {
 }
 
 void write_to_file(char* buffer, std::ofstream &file, uint32_t bytes) { //takes
-
   file.write(buffer, bytes);
 }
+
 // template<typename T>
 // T read_numeric_from_file(std::ifstream &file, int offset) {
 //   char buf[sizeof(T)];
@@ -69,73 +48,6 @@ bool _char_compare(const char* segment1, char* segment2, int c) {
   }
 
   return true;
-}
-Config parse_arguments(int argc, char** argv) {
-  if (argc == 1) {
-    std::cerr << "USE F*CKING ARGUMENTS!!!" << std::endl;
-    std::exit (1);
-  }  
-
-  std::vector<std::string> args;
-  args.reserve(argc);
-  
-  Config config;
-
-  for (int i = 0; i < argc; i++) {
-    args.push_back(std::string(argv[i]));
-  }
-
-  for (int i = 1; i < argc; i++) {
-    auto arg = args[i];
-
-    if (arg == "--help") {
-      std::cerr << "--help : prints this text aka help" << std::endl
-                << "-c : create XEF file, then give it a path and name to make a file '/path/file.xef'" << std::endl
-                << "-s : size, used with -c. this is the node count, this determines how many files and folders you can have." << std::endl;
-      std::exit (0);
-    }
-
-    if (arg == "-c") {
-      i++;
-      config.output_path = args[i];
-      config.make_xef = true;
-      continue;
-    }
-
-    if (arg == "-s") {
-      i++;
-      config.nodes = std::stoi(args[i]);
-      continue;
-    }
-
-    if (arg == "-x") {
-      i++;
-      config.output_path = args[i];
-      config.add_xef = true;
-      continue;
-    }
-
-    if (arg == "-i") {
-      i++;
-      config.inputfilex = args[i];
-      config.addfile = true;
-      continue;
-    }
-
-    std::cerr << args[i] << " i dont know what you want me to do with this you fucking idiot." << std::endl;
-    std::exit (-1);
-  }
-
-  if (config.make_xef && config.add_xef) {
-    std::cerr << "you cant. make a fucking xef file, and add to it. it might break things dimwit." << std::endl;
-    std::exit (-1);
-  }
-
-  if (config.add_xef != config.addfile) {
-    std::cerr << "okay, what file to add? im asking politly." << std::endl;
-    std::exit (-2);
-  }
-  return config;
 }
 
 int main(int argc, char** argv) {
@@ -218,22 +130,3 @@ int main(int argc, char** argv) {
 
   return 0;
 }
-
-
-
-
-
-
-
-
-// void some_fn() {
-// some_label:
-//   std::cout << "yes" << std::endl;
-//   goto also_a_label;
-
-// another_label:
-//   std::cout << "idk do something here"<< std:endl;
-
-// also_a_label:
-//   return;
-// }

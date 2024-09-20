@@ -6,11 +6,20 @@ CFLAGS   = -Ofast -Wall -Wextra -Wpedantic -Werror
 # -MMD does "free" dependency file generation.
 override CFLAGS += -std=c++23 -MMD
 
+
+# obj/%.o: src/%.cpp src/%.hpp obj
+# 	$(CXX) $(CFLAGS) $(CXXFLAGS) src/$*.cpp src/$*.hpp -o $@
+
+$(EXEC): $(OBJ) bin # $(patsubst src/%,obj/%,$(OBJ)) bin
+	$(CXX) $(CFLAGS) $(CXXFLAGS) $(LDFLAGS) $(OBJ) -o $@
+	
+# $(patsubst src/%,obj/%,$(OBJ)) -o $@
+
 bin:
 	mkdir bin
 
-$(EXEC): $(OBJ) bin
-	$(CXX) $(CFLAGS) $(CXXFLAGS) $(LDFLAGS) $^ -o $@
+# obj:
+# 	mkdir obj
 
 .PHONY: run
 run: $(EXEC)
@@ -18,7 +27,9 @@ run: $(EXEC)
 
 .PHONY: clean
 clean:
-	rm -f $(OBJ) $(EXEC) bin
+	rm -f $(OBJ) $(EXEC)
+	rmdir bin
+	# rmdir obj
 
 .PHONY: distclean
 distclean: clean
