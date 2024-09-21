@@ -2,7 +2,7 @@ EXEC     := bin/xef
 SRC      := $(shell find src/ -type f -name '*.cpp')
 OBJ      := $(addsuffix .o,$(basename $(SRC)))
 
-CFLAGS   = -Ofast -Wall -Wextra -Wpedantic -Werror
+CFLAGS   = -Ofast -Wall -Wextra -Wpedantic -Werror -g
 # -MMD does "free" dependency file generation.
 override CFLAGS += -std=c++23 -MMD
 

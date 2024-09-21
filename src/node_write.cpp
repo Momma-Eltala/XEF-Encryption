@@ -7,6 +7,6 @@
 #include "node_iterator.hpp"
 #include <fstream>
 
-int write_node (char* filename, std::ofstream &file, bool folder) {
+int write_node (char* filename, std::ofstream &file, bool folder, long bytes) {
     return 0;
 }

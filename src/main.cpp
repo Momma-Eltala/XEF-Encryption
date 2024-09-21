@@ -7,7 +7,6 @@
 
 #include "node_iterator.hpp"
 #include "parse_arguments.hpp"
-
  
  
 const std::string help_arg = "--help";
@@ -55,8 +54,8 @@ int main(int argc, char** argv) {
     std::ofstream xef_file(config.output_path);
     xef_file << "\x01XEF";
     write_numeric_to_file(xef_file, config.nodes);
-    xef_file << std::string (8, '\0');
-    xef_file << std::string(2028, '\0');
+    xef_file << std::string (4, '\0');
+    xef_file << std::string(2036, '\0');
     xef_file << std::string(512 * config.nodes, '\0');
  
      if (!xef_file) {
@@ -77,18 +76,21 @@ int main(int argc, char** argv) {
     std::ifstream xef_file_use (config.output_path, std::ifstream::binary);
     if (!xef_file_use || !inputfile) {
       std::cerr << "sorry, can you please tell me about somethat that fucking EXIST?! because "; 
+
       if (!xef_file_use) {
         std::cerr << config.output_path;
-      }
-      else {
+      } else {
         std::cerr << config.inputfilex;
       }
-      std::cerr << " does not exist." 
-      << std::endl;
+
+      std::cerr << " does not exist." << std::endl;
+
       return 1;
     }
+
     xef_file_use.read (buffer, 2048);
     bool not_xef = _char_compare(xefheader.c_str(), buffer, 4);
+    
     if(not_xef) {
       std::cerr << "*long sigh* "
       << config.output_path
@@ -98,6 +100,23 @@ int main(int argc, char** argv) {
     }
 
     config.nodes = read_numeric_from_buffer<int>(buffer, 4);
+
+    int freenodes = load::load_nodes(xef_file_use, config.nodes);
+
+    std::cerr << freenodes << std::endl;
+
+    for (long i = 0; i < 1; ++i) {
+      std::cerr << std::endl;      
+    }
+
+    // for (auto& elem : the_vector) { ... }
+
+    for (auto& node : NODES) {
+      std::cout << "size:" << node.size << std::endl;
+    }
+
+    return 0;
+
     
   }
   /*
