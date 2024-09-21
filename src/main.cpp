@@ -1,3 +1,5 @@
+// Copyright (c) 2024 Jonathan (Eltala) Moore
+
 #include <string>
 #include <iostream>
 #include <fstream>

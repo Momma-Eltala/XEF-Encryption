@@ -1,3 +1,9 @@
+/*
+    This is used to create nodes, and write to them
+
+    Copyright (c) 2024 Jonathan (Eltala) Moore
+*/
+
 #include "node_iterator.hpp"
 #include <fstream>
 

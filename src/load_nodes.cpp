@@ -1,3 +1,8 @@
+/*
+Copyright (c) 2024 Jonathan (Eltala) Moore
+
+This loads used nodes to the heap
+*/
 #include "node_iterator.hpp"
 #include <vector>
 #include <fstream>

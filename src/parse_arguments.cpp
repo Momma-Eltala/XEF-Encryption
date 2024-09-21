@@ -1,3 +1,9 @@
+/*
+  This sets up the program
+
+  Copyright (c) 2024 Jonathan (Eltala) Moore
+*/
+
 #include "parse_arguments.hpp"
 #include <vector>
 #include <iostream>

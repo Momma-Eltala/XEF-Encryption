@@ -1,3 +1,9 @@
+/*
+  header for the argument handler
+
+  Copyright (c) 2024 Jonathan (Eltala) Moore
+*/
+
 #include <string>
 
 struct Config {

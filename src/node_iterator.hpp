@@ -1,3 +1,10 @@
+/*
+node_iterator.hpp
+Interface for loading nodes from an XEF file.
+
+Copyright (c) 2024 Jonathan (Eltala) Moore
+*/
+
 #include <fstream>
 
 
